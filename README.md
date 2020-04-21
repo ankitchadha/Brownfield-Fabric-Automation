@@ -27,6 +27,7 @@ Include names of all the leaf-switches under the section-named [lab_leaf], and h
 
 Sample:
 
+```
 [lab_spine]
 Lab-Spine-1
 Lab-Spine-2
@@ -34,7 +35,7 @@ Lab-Spine-2
 [lab_leaf]
 Lab-Leaf-1
 Lab-Leaf-2
-
+```
 
 ###### Define device specific variables
 
@@ -45,15 +46,18 @@ These variables are specific to each device. Example:
 
 *Sample for leaf (file named host_vars/Lab-Leaf-1.yaml):*
 
+```
 ---
 ansible_host: 10.0.0.136
+```
 
 *Sample for spine (file named host_vars/Lab-Spine-1.yaml):*
 
+```
 ---
 ansible_host: 10.0.0.135
 longASN: 4210011901
-
+```
 
 #### Define parameters needed to generate configuration
 
@@ -61,6 +65,7 @@ This is where you'll define the various VLANs, VNIs, IP addresses etc. These par
 
 *Sample for leaf devices (file named group_vars/lab_leaf.yaml):
 
+```
 ---
 LocalASN: 65001
 VLANS:
@@ -74,7 +79,7 @@ VLANS:
     VLANADDRESS: 20.20.20.100/24
     VGWAdd: 20.20.20.1
     VNI: 10020
-    
+```    
  
  #### Execute the playbook 
  
@@ -82,13 +87,15 @@ You can limit the execution based on the role. For example: execute only for Spi
 You can also execute it for an individual switch
 
 *Sample script execution for leaf devices:*
-
+```
 ansible-playbook add-evpn-config-leaf.yaml --limit=lab_leaf
+```
 
 configuration file with the necessary Junos set commands are placed in the folder called templates/tmp-files/
 
 Output from the above mentioned playbook run:
 
+```
 [root@209c9fd40fec Brownfield-Fabric-Automation]# cat templates/tmp-files/Lab-Leaf-1.conf
 
 
@@ -130,3 +137,4 @@ set routing-instances OVERLAY_DC interface irb.20
 set vlans VLAN.20 vlan-id 20
 set vlans VLAN.20 l3-interface irb.20
 set vlans VLAN.20 vxlan vni 1020
+```
