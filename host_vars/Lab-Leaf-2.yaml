@@ -1,3 +1,2 @@
 ---
 ansible_host: 10.0.0.136
-VLANAddress: 172.18.37.228/23
