@@ -1,0 +1,5 @@
+{# Jinja2 comment #}
+
+set routing-instances OVERLAY_DC routing-options aggregate route 172.18.36.0/23 as-path path "{{ longASN }} {{ localASN }}"
+set routing-instances OVERLAY_DC routing-options aggregate route 172.18.36.0/23 as-path origin igp
+set routing-instances OVERLAY_DC routing-options aggregate route 172.18.36.0/23 discard

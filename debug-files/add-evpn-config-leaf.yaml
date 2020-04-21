@@ -1,0 +1,44 @@
+---
+- name: Generate config form template and Push config to device
+  hosts:
+    - all
+  roles:
+    - Juniper.junos
+  connection: local
+  gather_facts: no
+
+  vars:
+    tmp_dir: "templates/tmp-files"
+    conf_file: "{{ tmp_dir }}/{{ inventory_hostname }}.conf"
+
+  tasks:
+    - debug: var=tmp_dir
+
+    - debug: var=conf_file
+
+    - name: confirm or create config directory
+      file:
+        path: "{{ tmp_dir }}"
+        state: directory
+      run_once: yes
+
+    - name: save device info using template
+      template:
+        src: templates/add-evpn-config-leaf.j2
+        dest: "{{ conf_file }}"
+
+#    - name: push generated config on to device
+#      juniper_junos_config:
+#        provider: 
+#          host: "{{ ansible_host }}"
+#          user: "root"
+#          passwd: "Juniper"
+#        src: "{{ conf_file }}"
+#        load: set
+#        comment: "Adding loopback IP using the dynamic template from Ansible"
+#        diff: yes
+#        dest_dir: "{{ tmp_dir }}"
+#      register: config_results
+
+#    - debug:
+#        var: config_results

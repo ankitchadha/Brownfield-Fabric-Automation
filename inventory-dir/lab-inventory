@@ -1,0 +1,11 @@
+[lab:children]
+lab_spine
+lab_leaf
+
+[lab_spine]
+Lab-Spine-1
+Lab-Spine-2
+
+[lab_leaf]
+Lab-Leaf-1
+Lab-Leaf-2

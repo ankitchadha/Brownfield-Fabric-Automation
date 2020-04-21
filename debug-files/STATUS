@@ -1,0 +1,23 @@
+Apr-17-2020: 
+  Can pull data from all 4 devices right now. This is with uptime-1.2.yaml
+  Can push flower bracket config to all devices. This is with config-1.1.yaml
+  Can push set format config to all devices. This is with config-1.2.yaml
+
+  Can generate config dynamically based on variables. This is with config-with-template-1.1.yaml
+  Can push the dynamically generated config on to the devices. This is with config-with-templates-1.2.yaml
+
+  Can generate and push config using templates + host_vars. This is with same yaml files, and refering to host_vars within the jinja2 template. This is with config-with-templates-1.2.yaml
+
+  Hosts are now grouped separately for lab and production. Playbooks can be executed for lab ONLY (and production would not be impacted)
+
+
+Apr-20:
+  Working with Varian's config files now
+  Spine template created. Spine-1 and Spine-2 can now get different config files delivered to them. Difference is longASN. This is with evpn-config-spines.yaml
+  Leaf template created. Leaf-1 and Leaf02 can now get different config files delivered to them. Difference is IRB IP address. This is with evpn-config-leaf.yaml
+
+Apr-21:
+  Working when user provides VLAN variables as a list of dictionary
+
+Next step:
+  how to read inventory from an excel file

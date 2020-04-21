@@ -1,0 +1,24 @@
+{# Jinja2 comment #}
+
+{% for VLAN in VLANS %}
+
+set protocols igmp-snooping vlan {{ VLAN.NAME }} l2-querier source-address {{ VLAN.VGWAdd }}
+set protocols igmp-snooping vlan {{ VLAN.NAME }} proxy
+set vlans {{ VLAN.NAME }}  vxlan ingress-node-replication
+set interfaces irb unit {{ VLAN.ID }} virtual-gateway-accept-data
+set interfaces irb unit {{ VLAN.ID }} description {{ VLAN.NAME }}
+set interfaces irb unit {{ VLAN.ID }} family inet address {{ VLAN.VLANADDRESS }} preferred
+set interfaces irb unit {{ VLAN.ID }} family inet address {{ VLAN.VLANADDRESS }} virtual-gateway-address {{ VLAN.VGWAdd }}
+set protocols igmp interface irb.{{ VLAN.ID }}
+set protocols evpn vni-options vni 10{{ VLAN.ID }} vrf-target target:{{ LocalASN }}:10{{ VLAN.ID }}
+set protocols evpn extended-vni-list 10{{ VLAN.ID }}
+set policy-options policy-statement OVERLAY_IN term IMPORT_VNI_10{{ VLAN.ID }} from community COMM_VNI_10{{ VLAN.ID }}
+set policy-options policy-statement OVERLAY_IN term IMPORT_VNI_10{{ VLAN.ID }} then accept
+insert policy-options policy-statement OVERLAY_IN term IMPORT_VNI_10{{ VLAN.ID }} before term IMPORT_LEAF_ESI
+set policy-options community COMM_VNI_10{{ VLAN.ID }} members target:{{ LocalASN }}:10{{ VLAN.ID }}
+set routing-instances OVERLAY_DC interface irb.{{ VLAN.ID }}
+set vlans {{ VLAN.NAME }} vlan-id {{ VLAN.ID }}
+set vlans {{ VLAN.NAME }} l3-interface irb.{{ VLAN.ID }}
+set vlans {{ VLAN.NAME }} vxlan vni 10{{ VLAN.ID }}
+
+{% endfor %}

@@ -1,0 +1,18 @@
+set protocols igmp-snooping vlan {{ VLANName }} l2-querier source-address {{ IRBVGA }}
+set protocols igmp-snooping vlan {{ VLANName }} proxy
+set vlans {{ VLANName }}  vxlan ingress-node-replication
+set interfaces irb unit {{ VLAN }} virtual-gateway-accept-data
+set interfaces irb unit {{ VLAN }} description {{ VLANName }}
+set interfaces irb unit {{ VLAN }} family inet address {{ VLANAddress }} preferred
+set interfaces irb unit {{ VLAN }} family inet address {{ VLANAddress }} virtual-gateway-address {{ IRBVGA }}
+set protocols igmp interface irb.{{ VLAN }}
+set protocols evpn vni-options vni 10{{ VLAN }} vrf-target target:{{ LocalASN }}:10{{ VLAN }}
+set protocols evpn extended-vni-list 10{{ VLAN }}
+set policy-options policy-statement OVERLAY_IN term IMPORT_VNI_10{{ VLAN }} from community COMM_VNI_10{{ VLAN }}
+set policy-options policy-statement OVERLAY_IN term IMPORT_VNI_10{{ VLAN }} then accept
+set policy-options community COMM_VNI_10{{ VLAN }} members target:{{ LocalASN }}:10{{ VLAN }}
+set routing-instances OVERLAY_DC interface irb.{{ VLAN }}
+set vlans {{ VLANName }} vlan-id {{ VLAN }}
+set vlans {{ VLANName }} l3-interface irb.{{ VLAN }}
+set vlans {{ VLANName }} vxlan vni 10{{ VLAN }}
+
