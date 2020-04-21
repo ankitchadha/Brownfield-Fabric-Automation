@@ -1,7 +1,7 @@
 # Brownfield-Fabric-Automation
 
 ## Purpose
-Reliably push config to an existing data center comprised of Juniper devices. You can either generate the configuration and save them in text files (which will require manual push of these config files to your devices. Or you can use these playbooks to dynamically generate and push configs to the devices.
+Reliably push config to an existing data center comprised of Juniper devices. You can either generate the EVPN/VXLAN configuration and save it in text files (which will require manual push of these config files to your devices. Or you can use these playbooks to dynamically generate and push configs to the devices.
 
 ## Requirements
 These packages should be installed:
