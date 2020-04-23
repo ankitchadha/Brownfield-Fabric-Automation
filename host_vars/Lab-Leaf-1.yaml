@@ -1,2 +1,13 @@
 ---
 ansible_host: 10.0.0.136
+VLANS:
+  - ID: 10
+    NAME: VLAN.10
+    VLANADDRESS: 10.10.10.101/24
+    VGWAdd: 10.10.10.1
+    VNI: 10010
+  - ID: 20
+    NAME: VLAN.20
+    VLANADDRESS: 20.20.20.101/24
+    VGWAdd: 20.20.20.1
+    VNI: 10020

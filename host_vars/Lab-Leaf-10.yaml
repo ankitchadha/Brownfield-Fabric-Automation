@@ -1,0 +1,8 @@
+---
+ansible_host: 10.0.0.136
+VLANS:
+  - ID: 30
+    NAME: VLAN.30
+    VLANADDRESS: 30.30.30.110/24
+    VGWAdd: 30.30.300.1
+    VNI: 10030
